@@ -1,0 +1,186 @@
+<form class="form-horizontal">
+    <h3>Hardware Pins (Physical/Board Numbers)</h3>
+    <p class="help-block">Configure the physical pin numbers (GPIO.BOARD mode) for your hardware components.</p>
+
+    <div class="control-group">
+        <label class="control-label" for="pin_button">Shutdown Button Pin</label>
+        <div class="controls">
+            <input type="number" id="pin_button" data-bind="value: settings.plugins.physical_control.pin_button" min="1" max="40">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="pin_led">Status LED Pin</label>
+        <div class="controls">
+            <input type="number" id="pin_led" data-bind="value: settings.plugins.physical_control.pin_led" min="1" max="40">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="pin_buzzer">Buzzer Pin</label>
+        <div class="controls">
+            <input type="number" id="pin_buzzer" data-bind="value: settings.plugins.physical_control.pin_buzzer" min="1" max="40">
+        </div>
+    </div>
+
+    <h3>Hardware Features</h3>
+
+    <h4>Bluetooth Configuration</h4>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox" for="enable_ble">
+                <input type="checkbox" id="enable_ble" data-bind="checked: settings.plugins.physical_control.enable_ble, event: {change: function() { OctoPrint.simpleApiCommand('physical_control', 'toggle_ble', {'enabled': settings.plugins.physical_control.enable_ble()}); }}"> Enable Bluetooth Functionality
+            </label>
+        </div>
+    </div>
+
+    <h4>Buzzer Configuration</h4>
+
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox" for="buzz_on_start">
+                <input type="checkbox" id="buzz_on_start" data-bind="checked: settings.plugins.physical_control.buzz_on_start"> Enable Buzz on Print Start
+            </label>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="buzz_start_pattern">Start Sound Pattern</label>
+        <div class="controls">
+            <select id="buzz_start_pattern" data-bind="value: settings.plugins.physical_control.buzz_start_pattern, enable: settings.plugins.physical_control.buzz_on_start">
+                <option value="short">Short</option>
+                <option value="long">Long</option>
+                <option value="intermittent">Intermittent</option>
+                <option value="off">Off</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox" for="buzz_on_finish">
+                <input type="checkbox" id="buzz_on_finish" data-bind="checked: settings.plugins.physical_control.buzz_on_finish"> Enable Buzz on Print Finish
+            </label>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="buzz_finish_pattern">Finish Sound Pattern</label>
+        <div class="controls">
+            <select id="buzz_finish_pattern" data-bind="value: settings.plugins.physical_control.buzz_finish_pattern, enable: settings.plugins.physical_control.buzz_on_finish">
+                <option value="short">Short</option>
+                <option value="long">Long</option>
+                <option value="intermittent">Intermittent</option>
+                <option value="off">Off</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="buzz_error_pattern">Error Sound Pattern</label>
+        <div class="controls">
+            <select id="buzz_error_pattern" data-bind="value: settings.plugins.physical_control.buzz_error_pattern">
+                <option value="short">Short</option>
+                <option value="long">Long</option>
+                <option value="intermittent">Intermittent</option>
+                <option value="off">Off</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="buzz_intermittent_pause">Intermittent Pause (sec)</label>
+        <div class="controls">
+            <input type="number" id="buzz_intermittent_pause" data-bind="value: settings.plugins.physical_control.buzz_intermittent_pause" min="0.1" max="5.0" step="0.1">
+        </div>
+    </div>
+
+    <h4>Status LED Configuration</h4>
+    <div class="control-group">
+        <label class="control-label" for="brightness_status">Status Brightness (0-100)</label>
+        <div class="controls">
+            <input type="number" id="brightness_status" data-bind="value: settings.plugins.physical_control.brightness_status" min="0" max="100">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="color_status_idle">Idle Base Color</label>
+        <div class="controls">
+            <input type="color" id="color_status_idle" data-bind="value: settings.plugins.physical_control.color_status_idle">
+        </div>
+    </div>
+
+    <h4>Print Events LED Configuration</h4>
+    <div class="control-group">
+        <label class="control-label" for="brightness_events">Events Brightness (0-100)</label>
+        <div class="controls">
+            <input type="number" id="brightness_events" data-bind="value: settings.plugins.physical_control.brightness_events" min="0" max="100">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="color_events_heating">Heating Base Color</label>
+        <div class="controls">
+            <input type="color" id="color_events_heating" data-bind="value: settings.plugins.physical_control.color_events_heating">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="color_events_ready">Ready Base Color</label>
+        <div class="controls">
+            <input type="color" id="color_events_ready" data-bind="value: settings.plugins.physical_control.color_events_ready">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="active_print_pattern">Active Print RGB Pattern</label>
+        <div class="controls">
+            <select id="active_print_pattern" data-bind="value: settings.plugins.physical_control.active_print_pattern">
+                <option value="cycle">Cycle</option>
+                <option value="breathing">Breathing</option>
+                <option value="red_alert">Red Alert</option>
+                <option value="strobe">Strobe</option>
+                <option value="off">Off</option>
+            </select>
+        </div>
+    </div>
+
+    <h4>Bed Temperature LED Configuration</h4>
+    <div class="control-group">
+        <label class="control-label" for="brightness_bed">Bed Brightness (0-100)</label>
+        <div class="controls">
+            <input type="number" id="brightness_bed" data-bind="value: settings.plugins.physical_control.brightness_bed" min="0" max="100">
+        </div>
+    </div>
+
+    <h4>Manual LED Color Control</h4>
+    <div class="control-group">
+        <label class="control-label" for="manual_color_picker">LED Color</label>
+        <div class="controls">
+            <select id="manual_color_picker">
+                <option value="#ff0000">Red</option>
+                <option value="#00ff00">Green</option>
+                <option value="#0000ff">Blue</option>
+                <option value="#ffff00">Yellow</option>
+                <option value="#ff00ff">Magenta</option>
+                <option value="#00ffff">Cyan</option>
+                <option value="#ffffff">White</option>
+            </select>
+            <button class="btn btn-primary" data-bind="click: function() { OctoPrint.simpleApiCommand('physical_control', 'change_rgb_color', {'color': $('#manual_color_picker').val()}) }">Apply Color</button>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="manual_pattern_picker">Run Pattern</label>
+        <div class="controls">
+            <select id="manual_pattern_picker">
+                <option value="cycle">Cycle</option>
+                <option value="breathing">Breathing</option>
+                <option value="red_alert">Red Alert</option>
+                <option value="strobe">Strobe</option>
+            </select>
+            <button class="btn btn-primary" data-bind="click: function() { OctoPrint.simpleApiCommand('physical_control', 'active_print_pattern', {'pattern': $('#manual_pattern_picker').val()}) }">Run Pattern</button>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <button class="btn btn-danger" data-bind="click: function() { OctoPrint.simpleApiCommand('physical_control', 'turn_off_leds', {}) }">Turn Off All LEDs</button>
+        </div>
+    </div>
+</form>
